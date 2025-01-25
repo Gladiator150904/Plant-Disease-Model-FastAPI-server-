@@ -9,6 +9,10 @@ from PIL import Image
 import tensorflow as tf
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
+IMAGE_SIZE = (128, 128)
+
 MODEL_URL = "https://drive.google.com/uc?id=1Rcz1OE6AKBoduxvZi5TNqY3iXdoc7ppH"
 MODEL_PATH = "./model0001.keras"
 
