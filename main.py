@@ -38,10 +38,10 @@ if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000:
     if response.status_code == 200:
         with open(MODEL_PATH, "wb") as f:
             f.write(response.content)
-        print("Model downloaded successfully.")
+        print(f"Model downloaded successfully to {MODEL_PATH}.")
     else:
         print("Failed to download model. Check URL.")
-        exit(1)
+        exit(1)  # Stop execution
 
 # Load the model
 try:
