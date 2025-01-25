@@ -14,7 +14,7 @@ app = FastAPI()
 IMAGE_SIZE = (128, 128)
 
 MODEL_URL = "https://drive.google.com/uc?id=1Rcz1OE6AKBoduxvZi5TNqY3iXdoc7ppH"
-MODEL_PATH = "./model0001.keras"
+MODEL_PATH = "/app/model0001.keras"
 
 if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000:  # Check if the file is too small
     print("Downloading model...")
@@ -27,6 +27,11 @@ if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000:  # Chec
     else:
         print("Failed to download model. Check URL.")
         exit(1)  # Stop execution
+
+if os.path.exists(MODEL_PATH):
+    print(f"Model found at {MODEL_PATH}")
+else:
+    print(f"Model not found at {MODEL_PATH}")
 
 # Now try loading the model
 try:
