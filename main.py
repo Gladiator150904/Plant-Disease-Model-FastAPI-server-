@@ -7,6 +7,7 @@ import tensorflow as tf
 from PIL import Image
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+import gdown
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -33,17 +34,15 @@ CLASS_NAMES = [
 
 # Download the model if not already present
 if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000:
-    print("Downloading model...")
-    response = requests.get(MODEL_URL)
-    if response.status_code == 200:
-        with open(MODEL_PATH, "wb") as f:
-            f.write(response.content)
+    print("Downloading model using gdown...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+    if os.path.exists(MODEL_PATH) and os.path.getsize(MODEL_PATH) > 1000:
         print(f"Model downloaded successfully to {MODEL_PATH}.")
     else:
-        print("Failed to download model. Check URL.")
-        exit(1)  # Stop execution
+        print("Download failed or file is corrupted.")
+        exit(1)
 
-# Load the model
 try:
     model = tf.keras.models.load_model(MODEL_PATH)
     print("Model loaded successfully.")
