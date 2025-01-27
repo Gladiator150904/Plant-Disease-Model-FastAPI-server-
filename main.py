@@ -67,6 +67,8 @@ async def ping():
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
+    print("Received file:", file.filename)
+    print("Content type:", file.content_type)
     """Endpoint to predict the class of a plant disease from an image."""
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)  # Add batch dimension
